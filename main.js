@@ -1,63 +1,45 @@
-const message = (msg) => {
-  parseInt(prompt(msg));
-};
-
-const calculator = () => {
-  let response = 0;
-  let num = 0;
-  let num2 = 0;
-
-  while (response != 1 && response != 2 && response != 3 && response != 4) {
-    let response = message(
-      "[1] Suma\n[2] Resta\n[3] Multiplicacion\n[4] Divicion\n[5] Volver"
-    );
-    switch (response) {
-      case 1:
-        num = message("Ingrese el primer numero");
-        num2 = message("Ingrese el segundo numero");
-        alert(num + num2);
-        break;
-      case 2:
-        num = message("Ingrese el primer numero");
-        num2 = message("Ingrese el segundo numero");
-        alert(num - num2);
-        break;
-      case 3:
-        num = message("Ingrese el primer numero");
-        num2 = message("Ingrese el segundo numero");
-        alert(num * num2);
-        break;
-      case 4:
-        num = message("Ingrese el primer numero");
-        num2 = message("Ingrese el segundo numero");
-        alert(num / num2);
-        break;
-      case 5:
-        main();
-        break;
-    }
+const calcularInteresDependiendo = (monto, cuotas) => {
+  let recargo = prompt("Se le cobran recargo? [S/N]");
+  while (recargo !== "S" && recargo !=="s" && recargo !== "N" && recargo !=="n") {
+    recargo = prompt("Se le cobran recargo? [S/N]");
   }
-};
+  
+  if (recargo === "s" || recargo === "S") {
+    let porcentaje = parseFloat(prompt("Ingrese el interes"));
 
-const powers = () => {
-  let num = message("Ingrese un numero");
-  let num2 = message("Ingrese la base de la potencia");
-  let res = num;
+    let interes = parseFloat((monto * porcentaje) / 100);
 
-  for (let i = 1; i < num2; i++) {
-    res *= num;
+    let valorCuota = parseFloat(total / cuotas);
+    
+    let total = parseFloat(monto + interes);
+
+    let result = `El monto inicial es de $${monto} 
+    Con un recargo del ${porcentaje}% queda en: $${total}
+    Pagando en ${cuotas} cuotas
+    Cada cuota costará: $${valorCuota}`;
+
+    return alert(result);
+
+  } else if (recargo === "n" || recargo === "N") {
+    console.log(valorCuota);
+    let result = ` El precio con interes es de: $
+    Cantidad de cuotas: ${cuotas}
+    Cada cuota costará: $${valorCuota}`;
+
+    return alert(result);
+
   }
-  return alert(res);
 };
 
 //Calculadora de cuotas
-alert("Calculadora de cuotas");
+let salir = prompt("Calculadora de cuotas: \n[Enter] Iniciar\n[Q] Salir");
 
-let response = message(
-  "[1] Ingrese el monto a pagar\n[2] Salir"
-);
-while (response != 1 && response != 2) {
-  let response = message(
-    "[1] Ingrese el monto a pagar\n[2] Salir"
-  );
+while (salir !== "Q" && salir !== "q") {
+  let monto = parseFloat(prompt("Ingrese el monto a pagar:"));
+
+  let cuotas = parseFloat(prompt("Ingrese la cantidad de cuotas a pagar"));
+
+  calcularInteresDependiendo(monto, cuotas);
+
+  salir = prompt("¿Calcular otro interes?\n[Enter] Continuar \n[Q] Salir");
 }
