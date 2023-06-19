@@ -1,44 +1,46 @@
-const valorCuota = (monto, cuotas) => {
-  return parseFloat(monto / cuotas).toFixed(2);
-};
-
-const calcularInteresDependiendo = (monto, cuotas) => {
-  let recargo = prompt("Se le cobran recargo? [S/N]").toLowerCase();
-  while (recargo !== "s" && recargo !== "n") {
-    recargo = prompt("Se le cobran recargo? [S/N]").toLowerCase();
+class Estudiante {
+  constructor(nombre) {
+    this.nombre = nombre;
+    this.notas = [];
   }
 
-  if (recargo === "s") {
-    let porcentaje = parseFloat(prompt("Ingrese el interes"));
-
-    let interes = parseFloat((monto * porcentaje) / 100);
-
-    let total = parseFloat(monto + interes);
-
-    let result = `El monto inicial es de $${monto} 
-    Con un recargo del ${porcentaje}% queda en: $${total}
-    Pagando en ${cuotas} cuotas
-    Cada cuota costará: $${valorCuota(total, cuotas)}`;
-
-    return alert(result);
-  } else if (recargo === "n") {
-    let result = ` El precio final es de: $${monto}
-    Cantidad de cuotas: ${cuotas}
-    Cada cuota costará: $${valorCuota(monto, cuotas)}`;
-
-    return alert(result);
+  agregarNota(nota) {
+    this.notas.push(nota);
   }
+
+  calcularPromedio() {
+    const suma = this.notas.reduce((total, notas) => total + notas, 0);
+    return suma / this.notas.length;
+  }
+}
+
+const imprimirResultado = (nombre, promedio) => {
+  alert(
+    `El estudiante ${nombre} tiene un promedio de calificaciones de ${promedio}`
+  );
 };
 
-//Calculadora de cuotas
-let salir = prompt("Calculadora de cuotas: \n[Q] Salir").toLowerCase();
+while (true) {
+  const nombre = prompt(
+    "Ingrese el nombre del estudiante o [Q] para salir"
+  ).toLowerCase();
 
-while (salir !== "q") {
-  let monto = parseFloat(prompt("Ingrese el monto a pagar:"));
+  if (nombre === "q") {
+    break;
+  }
 
-  let cuotas = parseFloat(prompt("Ingrese la cantidad de cuotas a pagar"));
+  const estudiante = new Estudiante(nombre);
 
-  calcularInteresDependiendo(monto, cuotas);
+  while (true) {
+    let nota = "";
+    if (isNaN(nota) || estudiante.notas.length >= 3) {
+      break;
+    }
+    nota = parseFloat(prompt("Ingrese todas las notas"));
 
-  salir = prompt("¿Calcular otro interes?\n[Enter] Continuar \n[Q] Salir").toLowerCase();
+    estudiante.agregarNota(nota);
+  }
+
+  const promedio = estudiante.calcularPromedio().toFixed(2);
+  imprimirResultado(estudiante.nombre, promedio);
 }
