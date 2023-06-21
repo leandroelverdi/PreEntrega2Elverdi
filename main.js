@@ -14,33 +14,46 @@ class Estudiante {
   }
 }
 
-const imprimirResultado = (nombre, promedio) => {
+const imprimirResultado = (nombre, notas, promedio) => {
+  let notaFinal = "";
+  if (promedio >= 7) {
+    notaFinal = "APROBADO";
+  } else {
+    notaFinal = "DESAPROBADO";
+  }
+  let notasParseadas = notas.join("-");
+
   alert(
-    `El estudiante ${nombre} tiene un promedio de calificaciones de ${promedio}`
+    `${nombre} tiene las siguentes notas: [${notasParseadas}]\nlo cual de calificacion final obtiene un promedio de: ${promedio}\nel estudiate se encuentra ${notaFinal}`
   );
 };
 
 while (true) {
-  const nombre = prompt(
-    "Ingrese el nombre del estudiante o [Q] para salir"
-  ).toLowerCase();
+  let nombre = prompt("Ingrese el nombre del estudiante o [Q] para salir");
 
-  if (nombre === "q") {
+  if (["Q", "q"].includes(nombre)) {
     break;
   }
 
   const estudiante = new Estudiante(nombre);
 
   while (true) {
-    let nota = "";
-    if (isNaN(nota) || estudiante.notas.length >= 3) {
+    const nota = parseFloat(
+      prompt("Ingrese todas las notas o ingrese un campo vacio para continuar")
+    );
+    if (isNaN(nota)) {
       break;
+    } else if (nota > 0 && nota <= 10) {
+      estudiante.agregarNota(nota);
+    } else {
+      alert("Ingrese un numero en el rango del [1, 10]");
     }
-    nota = parseFloat(prompt("Ingrese todas las notas"));
-
-    estudiante.agregarNota(nota);
   }
 
   const promedio = estudiante.calcularPromedio().toFixed(2);
-  imprimirResultado(estudiante.nombre, promedio);
+
+  if (estudiante.notas.length <= 2) {
+    break;
+  }
+  imprimirResultado(estudiante.nombre, estudiante.notas, promedio);
 }
