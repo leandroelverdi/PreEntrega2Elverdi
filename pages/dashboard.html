@@ -46,25 +46,24 @@
                 <a class="nav-link" href="../index.html">Inicio</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="./ladging.html">Lugares</a>
+                <a class="nav-link" href="./bookings.html">Lugares</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="./about.html"
-                  >Sobre Nosotros</a
-                >
+                <a class="nav-link" href="./about.html">Sobre Nosotros</a>
               </li>
             </ul>
             <div class="d-flex align-items-center gap-2">
-              <span class="text-black">
-                <span id="loginButton" class="logged">
-                  <a href="../pages/login.html">Iniciar Sesion/Registrate</a>
+              <div class="text-black">
+                <span id="loginButton" class="d-flex">
+                  <a href="./login.html" class="text-black"
+                    >Iniciar Sesion/Registrate</a
+                  >
                 </span>
-                <span id="logout" class="align-items-center gap-2">
-                  <a  href="../pages/dashboard.html" class="text-black"
-                    >Perfil</a
+                <span id="userLoged" class="align-items-center gap-2 d-none">
+                  <a href="./dashboard.html" class="text-black">Perfil</a
                   ><i class="fa-solid fa-user"></i
                 ></span>
-              </span>
+              </div>
               <form class="d-flex" role="search">
                 <input
                   class="form-control me-2"
@@ -81,9 +80,10 @@
         </div>
       </nav>
     </header>
-    <article id="sideBar">
+    <section id="sideBar">
       <h1>Bienvenido</h1>
-    </article>
+    </section>
+    <section id="bookings"></section>
     <button id="logoutButton">Cerrar Sesion</button>
 
     <script src="../js/session.js"></script>

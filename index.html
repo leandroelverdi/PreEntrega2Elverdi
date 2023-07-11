@@ -46,25 +46,24 @@
                 <a class="nav-link" href="../index.html">Inicio</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="./pages/ladging.html">Lugares</a>
+                <a class="nav-link" href="./pages/bookings.html">Lugares</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="./pages/about.html"
-                  >Sobre Nosotros</a
-                >
+                <a class="nav-link" href="./pages/about.html">Sobre Nosotros</a>
               </li>
             </ul>
             <div class="d-flex align-items-center gap-2">
-              <span class="text-black">
-                <span id="loginButton">
-                  <a href="../pages/login.html" class="text-black">Iniciar Sesion/Registrate</a>
+              <div class="text-black">
+                <span id="loginButton" class="d-flex">
+                  <a href="../pages/login.html" class="text-black"
+                    >Iniciar Sesion</a
+                  >
                 </span>
-                <span id="logout" class="align-items-center gap-2">
-                  <a href="../pages/dashboard.html" class="text-black"
-                    >Perfil</a
+                <span id="userLoged" class="align-items-center gap-2 d-none">
+                  <a href="../pages/dashboard.html" class="text-black">Perfil</a
                   ><i class="fa-solid fa-user"></i
                 ></span>
-              </span>
+              </div>
               <form class="d-flex" role="search">
                 <input
                   class="form-control me-2"
@@ -112,14 +111,12 @@
       </section>
 
       <section class="d-flex flex-column align-items-center">
-        <h2>Destacados</h2>
-        <div class="container text-center my-5">
-          <div
-            id="container-lodging"
-            class="row row-cols-3 justify-content-center gy-4"
-          ></div>
-        </div>
+        <h2 class="my-4">Lugares Destacados:</h2>
+        <div id="app" class="container d-flex gap-4"></div>
+
+        <a href="./pages/bookings.html" class="btn border w-50 my-5 py-4 btn-secondary">Ver todas las estadias</a>
       </section>
+
     </main>
     <footer
       class="d-flex justify-content-center align-items-center bg-body-tertiary footer"
@@ -130,7 +127,7 @@
       >
     </footer>
     <script src="./js/session.js"></script>
-    <script type="module" src="js/main.js"></script>
+    <script type="module" src="./js/main.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

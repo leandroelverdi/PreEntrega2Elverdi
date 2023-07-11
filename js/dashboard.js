@@ -1,10 +1,20 @@
-const sideBar = document.getElementById("sideBar");
-
+const nameUser = localStorage.getItem("loggedInUser");
+const sideBar = document.querySelector("#sideBar");
 const h2 = document.createElement("h2");
+h2.innerText = `usuario: ${nameUser}`;
+sideBar.appendChild(h2);
 
-h2.innerText = `usuario: ${loggedInUser}`;
+const bookings = document.querySelector("#bookings");
 
-sideBar.append(h2);
+const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+cart.forEach((cartItem) => {
+  const div = document.createElement("div");
+  div.innerHTML = `${cartItem.name}`
+  bookings.appendChild(div);
+});
+
+const logoutButton = document.getElementById("logoutButton");
 
 logoutButton.addEventListener("click", () => {
   localStorage.removeItem("loggedInUser");

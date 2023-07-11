@@ -45,25 +45,24 @@
                 <a class="nav-link" href="../index.html">Inicio</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="./ladging.html">Lugares</a>
+                <a class="nav-link" href="./bookings.html">Lugares</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="./about.html"
-                  >Sobre Nosotros</a
-                >
+                <a class="nav-link" href="./about.html">Sobre Nosotros</a>
               </li>
             </ul>
             <div class="d-flex align-items-center gap-2">
-              <span class="text-black">
-                <span id="loginButton" class="logged">
-                  <a href="../pages/login.html">Iniciar Sesion/Registrate</a>
+              <div class="text-black">
+                <span id="loginButton" class="d-flex">
+                  <a href="./login.html" class="text-black"
+                    >Iniciar Sesion</a
+                  >
                 </span>
-                <span id="logout" class="align-items-center gap-2">
-                  <a href="../pages/dashboard.html" class="text-black"
-                    >Perfil</a
+                <span id="userLoged" class="align-items-center gap-2 d-none">
+                  <a href="./dashboard.html" class="text-black">Perfil</a
                   ><i class="fa-solid fa-user"></i
                 ></span>
-              </span>
+              </div>
               <form class="d-flex" role="search">
                 <input
                   class="form-control me-2"
@@ -80,13 +79,13 @@
         </div>
       </nav>
     </header>
-    <main class="container">
+    <main class="container h-100 mt-5">
       <section class="row justify-content-center">
-        <article class="col-4">
+        <div class="col-4">
           <div class="container">
             <h3>Filtrar por:</h3>
 
-            <div class="d-flex flex-column gap-3 w-100">
+            <div class="d-flex flex-column gap-3">
               <label for="category">Categoria</label>
               <select id="category" class="form-control">
                 <option value="">Todos</option>
@@ -108,17 +107,17 @@
                 placeholder="Precio maximo"
               />
 
-              <div class="d-flex justify-content-around">
-                <button id="btn-filter" class="btn btn-primary w-50">
-                  Filtrar
-                </button>
-                <button id="btn-reset" class="btn btn-secondary w-25">
+              <div
+                class="d-flex flex-column flex-md-row justify-content-between"
+              >
+                <button id="btn-filter" class="btn btn-primary">Filtrar</button>
+                <button id="btn-reset" class="btn btn-secondary">
                   Resetear
                 </button>
               </div>
             </div>
           </div>
-        </article>
+        </div>
         <div id="container-lodging" class="col-8"></div>
       </section>
     </main>
@@ -130,8 +129,8 @@
         reservados</span
       >
     </footer>
-    <script type="module" src="../js/details.js"></script>
     <script src="../js/session.js"></script>
+    <script type="module" src="../js/bookings.js"></script>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

@@ -1,13 +1,10 @@
-const loginButton = document.getElementById("loginButton");
-const logoutButton = document.getElementById("logoutButton");
-const logout = document.getElementById("logout");
+const loginButton = document.querySelector("#loginButton")
+const userLoged = document.querySelector("#userLoged");
 
-let loggedInUser = localStorage.getItem("loggedInUser");
-
-if (loggedInUser) {
-  loginButton.style.display = "none";
-  logout.style.display = "flex";
-} else {
-  loginButton.style.display = "flex";
-  logout.style.display = "none";
+const isLoged = () => {
+  if (localStorage.getItem("loggedInUser") !== null) {
+    userLoged.classList.replace("d-none", "d-flex");
+    loginButton.classList.replace("d-flex", "d-none");
+  }
 }
+isLoged();
