@@ -5,7 +5,7 @@
 
 .hero-section {
   width: 100%;
-  height: 50vh;
+  height: 80vh;
 }
 
 .blur {
@@ -17,6 +17,10 @@
   height: 200px;
   object-fit: cover;
   background-position: bottom;
+}
+
+.side-bar {
+  height: 100vh;
 }
 
 /*!

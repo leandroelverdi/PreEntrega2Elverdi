@@ -23,68 +23,76 @@
     </head>
   </head>
   <body>
-    <header>
-      <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="../index.html">
-            <img class="logo" src="../images/logo.png" alt="Logo" />
-          </a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarScroll"
-            aria-controls="navbarScroll"
+    <section class="row w-100">
+      <div class="col-2 d-flex flex-column bg-body-tertiary side-bar p-4">
+        <a href="/" class="d-flex text-dark text-decoration-none">
+          <h1 class="fs-1">Bienvenido</h1>
+        </a>
+        <hr />
+        <ul class="nav nav-pills flex-column mb-auto">
+          <li class="nav-item">
+            <a href="../index.html" class="nav-link text-dark">
+              <svg class="bi pe-none me-2" width="16" height="16">
+                <use xlink:href="#home"></use>
+              </svg>
+              Inicio
+            </a>
+          </li>
+          <li>
+            <a href="./bookings.html" class="nav-link text-dark">
+              <svg class="bi pe-none me-2" width="16" height="16">
+                <use xlink:href="#speedometer2"></use>
+              </svg>
+              Lugares
+            </a>
+          </li>
+          <li>
+            <a href="./about.html" class="nav-link text-dark">
+              <svg class="bi pe-none me-2" width="16" height="16">
+                <use xlink:href="#table"></use>
+              </svg>
+              Sobre Nosotros
+            </a>
+          </li>
+        </ul>
+        <div class="dropdown">
+          <a
+            id="userLoged"
+            href="#"
+            class="d-flex align-items-center text-dark text-decoration-none dropdown-toggle mx-2"
+            data-bs-toggle="dropdown"
             aria-expanded="false"
-            aria-label="Toggle navigation"
           >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarScroll">
-            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll">
-              <li class="nav-item">
-                <a class="nav-link" href="../index.html">Inicio</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="./bookings.html">Lugares</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="./about.html">Sobre Nosotros</a>
-              </li>
-            </ul>
-            <div class="d-flex align-items-center gap-2">
-              <div class="text-black">
-                <span id="loginButton" class="d-flex">
-                  <a href="./login.html" class="text-black"
-                    >Iniciar Sesion/Registrate</a
-                  >
-                </span>
-                <span id="userLoged" class="align-items-center gap-2 d-none">
-                  <a href="./dashboard.html" class="text-black">Perfil</a
-                  ><i class="fa-solid fa-user"></i
-                ></span>
-              </div>
-              <form class="d-flex" role="search">
-                <input
-                  class="form-control me-2"
-                  type="search"
-                  placeholder="Destino"
-                  aria-label="Search"
-                />
-                <button class="btn btn-outline-success" type="submit">
-                  Buscar
-                </button>
-              </form>
-            </div>
-          </div>
+            <strong id="userName" class="d-flex text-capitalize"></strong>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+            <div id="loginButton"></div>
+            <li>
+              <a id="logoutButton" class="dropdown-item">Cerrar Sesion</a>
+            </li>
+          </ul>
         </div>
-      </nav>
-    </header>
-    <section id="sideBar">
-      <h1>Bienvenido</h1>
+      </div>
+
+      <div class="col-10 mt-4">
+        <h2 class="text-center mb-5 text-decoration-underline">
+          Historial de reservas
+        </h2>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Categoria</th>
+              <th scope="col">Precio</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr id="tr"></tr>
+          </tbody>
+        </table>
+      </div>
     </section>
-    <section id="bookings"></section>
-    <button id="logoutButton">Cerrar Sesion</button>
 
     <script src="../js/session.js"></script>
     <script src="../js/dashboard.js"></script>
