@@ -1,65 +1,119 @@
-import { initProduct } from "../db/DBbookings.js";
+const contianer = document.getElementById("container-lodging");
+const btnFilter = document.getElementById("btn-filter");
+const btnReset = document.getElementById("btn-reset");
+const minPrice = document.getElementById("price-min");
+const maxPrice = document.getElementById("price-max");
+const category = document.getElementById("category");
+let arrayCart = JSON.parse(localStorage.getItem("cart")) || [];
+let allItems = [];
 
-const arrayProduct = [];
-let id = 1;
-initProduct(arrayProduct, id);
-
-const filterProducts = () => {
-  const selectedCategory = document.querySelector("#category").value;
-  const minPrice = parseInt(document.querySelector("#price-min").value) || 0;
-  const maxPrice =
-    parseInt(document.querySelector("#price-max").value) || Infinity;
-
-  const filteredProducts = arrayProduct.filter((item) => {
-    const categoryMatch =
-      selectedCategory === "" || item.category === selectedCategory;
-    const priceMatch = item.price >= minPrice && item.price <= maxPrice;
-    return categoryMatch && priceMatch;
-  });
-
-  showProducts(filteredProducts);
+const getItems = async () => {
+  try {
+    const response = await fetch("../db/bookings.json");
+    const data = await response.json();
+    return data.items;
+  } catch (err) {
+    return console.log("Error al cargar los datos", err);
+  }
 };
 
-const showProducts = (filteredProducts) => {
-  const contianer = document.querySelector("#container-lodging");
+const showItems = (items) => {
   contianer.innerHTML = "";
 
-  if (filteredProducts.length === 0) {
+  if (items.length === 0) {
     contianer.innerHTML = `
-        <div class="alert alert-warning d-flex justify-content-center" role="alert">
-          No hay resultados que apliquen a tu filtro
-        </div>`;
+      <div class="alert alert-warning d-flex justify-content-center" role="alert">
+        No hay resultados que apliquen a tu filtro
+      </div>`;
     return;
   }
 
-  filteredProducts.forEach((element) => {
+  const fragment = new DocumentFragment();
+
+  items.forEach((item) => {
     const card = document.createElement("div");
+    card.classList.add("card", "col", "p-0");
     card.innerHTML = `
-    <div class="card mb-3">
-    <div class="row g-0">
-      <div class="col-md-4">
-        <img src="../images/${element.url}" class="img-fluid rounded-start" alt="item">
-      </div>
-      <div class="col-md-8">
-        <div class="card-body d-flex flex-column align-items-center">
-          <h2 class="card-title fs-4">${element.name}</h2>
-          <p class="card-text">$${element.price}</p>
-          <a id="" href="#" class="btn btn-primary w-100">Reservar</a>
+        <img src="../images/${item.url}" class="card-img-top booking-img" alt="Item" />
+        <div class="card-body d-flex flex-column justify-content-between gap-5">
+          <div class="h-100 d-flex flex-column justify-content-start">
+            <h2 class="card-title fs-5">${item.name}</h2>
+            <p class="card-text">$${item.price}</p>
+          </div>
+          <a href="#" id="${item.id}" class="btn btn-primary btnAdd w-100">Reservar</a>
         </div>
-      </div>
-    </div>
-  </div>
-  `;
-    contianer.appendChild(card);
+        `;
+    fragment.appendChild(card);
+  });
+
+  contianer.append(fragment);
+
+  const btnAdd = document.querySelectorAll(".btnAdd");
+
+  btnAdd.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      const { target } = e;
+      const { id } = target;
+      if (localStorage.getItem("loggedInUser") !== null) {
+        const item = items.find((item) => item.id == id);
+
+        console.log("Se agrego su reserva", item);
+        arrayCart.push(item);
+        localStorage.setItem("cart", JSON.stringify(arrayCart));
+      } else {
+        alert("Necesitas estar logeado para poder reservar");
+        window.location.href = "./pages/login.html";
+      }
+    });
   });
 };
 
-document.querySelector("#btn-filter").addEventListener("click", filterProducts);
-document.querySelector("#btn-reset").addEventListener("click", () => {
-  document.querySelector("#category").value = "";
-  document.querySelector("#price-min").value = "";
-  document.querySelector("#price-max").value = "";
-  filterProducts();
+const filterItems = () => {
+  getItems()
+    .then((items) => {
+      let filteredItems = [...items];
+      let minPriceParsed = parseInt(minPrice.value);
+      let maxPriceParsed = parseInt(maxPrice.value);
+
+      if (!isNaN(minPriceParsed)) {
+        filteredItems = filteredItems.filter(
+          (item) => item.price >= minPriceParsed
+        );
+      }
+
+      if (!isNaN(maxPriceParsed)) {
+        filteredItems = filteredItems.filter(
+          (item) => item.price <= maxPriceParsed
+        );
+      }
+
+      if (category.value) {
+        filteredItems = items.filter((item) => item.category == category.value);
+      }
+
+      showItems(filteredItems);
+    })
+    .catch((err) => err, "Error al filtrar los items");
+};
+
+const resetFilters = () => {
+  document.getElementById("price-min").value = "";
+  document.getElementById("price-max").value = "";
+  document.getElementById("category").value = "";
+
+  showItems(allItems);
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+  getItems()
+    .then((items) => {
+      allItems = items;
+      showItems(items);
+    })
+    .catch((err) =>
+      alert(err, "Error al obtener los datos de la base de datos")
+    );
 });
 
-showProducts(arrayProduct);
+btnFilter.addEventListener("click", filterItems);
+btnReset.addEventListener("click", resetFilters);

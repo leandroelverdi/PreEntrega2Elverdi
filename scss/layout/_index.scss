@@ -3,6 +3,12 @@
   height: 80vh;
 }
 
-.blur {
-  filter: blur(3px);
+.hero-title {
+  top: 35%;
+  color: var(--bs-tertiary-color);
+}
+
+.booking-img {
+  width: 100%;
+  height: 180px;
 }

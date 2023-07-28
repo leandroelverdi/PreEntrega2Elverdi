@@ -8,3 +8,6 @@ if (!getUsers) {
   localStorage.setItem('users', JSON.stringify(users));
 }
 
+export const addToCart = (cart, product) => {
+  cart.push(product);
+};

@@ -13,6 +13,7 @@ const addNewUser = () => {
 
   const addUser = [...getUsers, newUser];
   localStorage.setItem("users", JSON.stringify(addUser));
+  window.location.href = "./login.html";
 };
 
 form.addEventListener("submit", (e) => {

@@ -23,10 +23,10 @@
     </head>
   </head>
   <body>
-    <section class="row w-100">
-      <div class="col-2 d-flex flex-column bg-body-tertiary side-bar p-4">
+    <main class="d-flex">
+      <section class="d-flex flex-column bg-body-tertiary side-bar p-4">
         <a href="/" class="d-flex text-dark text-decoration-none">
-          <h1 class="fs-1">Bienvenido</h1>
+          <h1 class="title">Bienvenido</h1>
         </a>
         <hr />
         <ul class="nav nav-pills flex-column mb-auto">
@@ -68,13 +68,13 @@
           <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
             <div id="loginButton"></div>
             <li>
-              <a id="logoutButton" class="dropdown-item">Cerrar Sesion</a>
+              <a id="logoutButton" class="dropdown-item logoutButton">Cerrar Sesion</a>
             </li>
           </ul>
         </div>
-      </div>
+      </section>
 
-      <div class="col-10 mt-4">
+      <section class="content mt-4 w-100 mx-5">
         <h2 class="text-center mb-5 text-decoration-underline">
           Historial de reservas
         </h2>
@@ -87,12 +87,10 @@
               <th scope="col">Precio</th>
             </tr>
           </thead>
-          <tbody>
-            <tr id="tr"></tr>
-          </tbody>
+          <tbody id="tbody"></tbody>
         </table>
-      </div>
-    </section>
+      </section>
+    </main>
 
     <script src="../js/session.js"></script>
     <script src="../js/dashboard.js"></script>

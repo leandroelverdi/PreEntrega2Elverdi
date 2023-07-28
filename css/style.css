@@ -8,8 +8,14 @@
   height: 80vh;
 }
 
-.blur {
-  filter: blur(3px);
+.hero-title {
+  top: 35%;
+  color: var(--bs-tertiary-color);
+}
+
+.booking-img {
+  width: 100%;
+  height: 180px;
 }
 
 .image_about {
@@ -20,7 +26,21 @@
 }
 
 .side-bar {
+  min-width: 18em;
   height: 100vh;
+}
+.side-bar .title {
+  cursor: default;
+  width: 100%;
+  font-size: 36px;
+  text-align: center;
+}
+.side-bar li a:hover {
+  background-color: var(--bs-info);
+}
+
+.logoutButton {
+  cursor: pointer;
 }
 
 /*!

@@ -7,42 +7,41 @@ let id = 1;
 initProduct(arrayProducts, id);
 
 const app = document.querySelector("#app");
+let count = 0;
 
 arrayProducts.forEach((element) => {
-  const card = document.createElement("div");
-  card.classList.add("w-50");
-  card.innerHTML = ` 
-        <div class="card">
-          <img
-            src="images/${element.url}"
-            class="card-img-top"
-            alt="Departamento"
-          />
-          <div class="card-body">
-            <h5 class="card-title">${element.name}</h5>
+  if (count < 6) {
+    const card = document.createElement("div");
+    card.classList.add("card", "col", "p-0");
+    card.innerHTML = `
+        <img src="images/${element.url}" class="card-img-top booking-img" alt="Item" />
+        <div class="card-body d-flex flex-column justify-content-between gap-5">
+          <div class="h-100 d-flex flex-column justify-content-start">
+            <h2 class="card-title fs-5">${element.name}</h2>
             <p class="card-text">$${element.price}</p>
-            <div class="d-flex flex-column gap-2">
-              <a href="#" class="btn btn-primary btnAdd">Reservar</a>
-            </div>
           </div>
+          <a href="#" id="${element.id}" class="btn btn-primary btnAdd w-100">Reservar</a>
         </div>
         `;
-        
-  const btnAdd = document.querySelectorAll(".btnAdd");
+    count++;
+    app.appendChild(card);
+  }
+});
 
-  btnAdd.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      if (localStorage.getItem("loggedInUser") !== null) {
-        alert("Se agrego su reserva")
-        addToCart(arrayCart, element); 
-        localStorage.setItem("cart", JSON.stringify(arrayCart));
-      } else {
-        alert("Necesitas estar logeado para poder reservar");
-        window.location.href = "./pages/login.html";
-      }
-      
-    });
+const btnAdd = document.querySelectorAll(".btnAdd");
+
+btnAdd.forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    const { target } = e;
+    const { id } = target;
+    if (localStorage.getItem("loggedInUser") !== null) {
+      const item = arrayProducts.find((item) => item.id == id);
+      alert("Se agrego su reserva");
+      addToCart(arrayCart, item);
+      localStorage.setItem("cart", JSON.stringify(arrayCart));
+    } else {
+      alert("Necesitas estar logeado para poder reservar");
+      window.location.href = "./pages/login.html";
+    }
   });
-
-  app.appendChild(card);
 });

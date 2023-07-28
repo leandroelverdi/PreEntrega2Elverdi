@@ -6,13 +6,15 @@ userName.innerText = `${nameUser}`;
 const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 cart.forEach((cartItem) => {
-  const tr = document.querySelector("#tr");
+  const tbody = document.querySelector("#tbody");
+  const tr = document.createElement("tr");
   tr.innerHTML = `
-      <th scope="row">${cartItem.id}</th>
-      <td>${cartItem.name}</td>
+    <th scope="row">${cartItem.id}</th>
+    <td>${cartItem.name}</td>
       <td>${cartItem.category}</td>
       <td>${cartItem.price}</td>
 `;
+  tbody.appendChild(tr);
 });
 
 const logoutButton = document.getElementById("logoutButton");
