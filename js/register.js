@@ -1,3 +1,4 @@
+import Swal from "../node_modules/sweetalert2/src/sweetalert2.js";
 const form = document.querySelector("#formRegister");
 
 form.addEventListener("submit", (e) => {
@@ -14,6 +15,11 @@ const addNewUser = () => {
 
   console.log(addUser);
   localStorage.setItem("users", JSON.stringify(addUser));
-  alert("Usuario registrado con excito");
-  window.location.href = "./login.html";
+  Swal.fire({
+    icon: "success",
+    title: "Usuario registrado con excito",
+    showConfirmButton: false,
+    timer: 1500,
+  });
+  setTimeout(() => window.location.href = "./login.html", 1500);
 };

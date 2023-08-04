@@ -1,3 +1,4 @@
+import Swal from "../node_modules/sweetalert2/src/sweetalert2.js";
 import { getItems } from "./fetch.js";
 const contianer = document.getElementById("container-lodging");
 const btnFilter = document.getElementById("btn-filter");
@@ -47,13 +48,19 @@ const showItems = (items) => {
       const { id } = target;
       if (localStorage.getItem("loggedInUser") !== null) {
         const item = items.find((item) => item.id == id);
-
-        console.log("Se agrego su reserva", item);
+        Swal.fire({
+          icon: "success",
+          title: "Su reserva se agrego con exito",
+          showConfirmButton: false,
+          timer: 1500,
+        });
         arrayCart.push(item);
         localStorage.setItem("cart", JSON.stringify(arrayCart));
       } else {
-        alert("Necesitas estar logeado para poder reservar");
-        window.location.href = "./login.html";
+        Swal.fire({
+          title: "Inicia sesion para continuar",
+          confirmButtonText: "Entendido",
+        });
       }
     });
   });
@@ -102,7 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
       showItems(items);
     })
     .catch((err) =>
-      alert(err, "Error al obtener los datos de la base de datos")
+      console.log(err, "Error al obtener los datos de la base de datos")
     );
 });
 

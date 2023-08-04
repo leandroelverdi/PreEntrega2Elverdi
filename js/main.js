@@ -1,3 +1,4 @@
+import Swal from "../node_modules/sweetalert2/src/sweetalert2.js";
 import { getItems } from "./fetch.js";
 let arrayCart = JSON.parse(localStorage.getItem("cart")) || [];
 const app = document.querySelector("#app");
@@ -11,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
       showItems(arrayItems);
     })
     .catch((err) =>
-      alert(err, "Error al obtener los datos de la base de datos")
+      console.log(err, "Error al obtener los datos de la base de datos")
     );
 });
 
@@ -34,7 +35,7 @@ const showItems = (arrayItems) => {
       app.appendChild(card);
     }
   });
-  
+
   const btnAdd = document.querySelectorAll(".btnAdd");
 
   btnAdd.forEach((btn) => {
@@ -43,12 +44,19 @@ const showItems = (arrayItems) => {
       const { id } = target;
       if (localStorage.getItem("loggedInUser") !== null) {
         const item = arrayItems.find((item) => item.id == id);
-        alert("Se agrego su reserva");
+        Swal.fire({
+          icon: "success",
+          title: "Su reserva se agrego con exito",
+          showConfirmButton: false,
+          timer: 1500,
+        });
         arrayCart.push(item);
         localStorage.setItem("cart", JSON.stringify(arrayCart));
       } else {
-        alert("Necesitas estar logeado para poder reservar");
-        window.location.href = "./pages/login.html";
+        Swal.fire({
+          title: "Inicia sesion para continuar",
+          confirmButtonText: "Entendido",
+        });
       }
     });
   });
