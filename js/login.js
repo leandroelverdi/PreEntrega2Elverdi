@@ -1,12 +1,14 @@
 const usernameInput = document.querySelector("#username");
 const passwordInput = document.querySelector("#password");
+const usersDefault = [{ username: "admin", password: "admin" }];
+const users = JSON.parse(localStorage.getItem("users")) || [];
 
 document.addEventListener("DOMContentLoaded", () => {
   localStorage.getItem("loggedInUser") ? alreadyLoged() : login();
 });
 
-const alreadyLoged = () => {
-  window.location.href = "./dashboard.html";
+if (users.length == 0) {
+  localStorage.setItem("users", JSON.stringify(usersDefault));
 }
 
 const login = () => {
@@ -18,7 +20,6 @@ const login = () => {
     let username = usernameInput.value;
     let password = passwordInput.value;
 
-    let users = JSON.parse(localStorage.getItem("users")) || [];
     let user = users.find(
       (user) => user.username === username && user.password === password
     );
@@ -30,4 +31,8 @@ const login = () => {
       alert("Nombre de usuario o contraseña incorrectos.");
     }
   });
+};
+
+const alreadyLoged = () => {
+  window.location.href = "./dashboard.html";
 };

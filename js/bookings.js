@@ -1,3 +1,4 @@
+import { getItems } from "./fetch.js";
 const contianer = document.getElementById("container-lodging");
 const btnFilter = document.getElementById("btn-filter");
 const btnReset = document.getElementById("btn-reset");
@@ -5,17 +6,7 @@ const minPrice = document.getElementById("price-min");
 const maxPrice = document.getElementById("price-max");
 const category = document.getElementById("category");
 let arrayCart = JSON.parse(localStorage.getItem("cart")) || [];
-let allItems = [];
-
-const getItems = async () => {
-  try {
-    const response = await fetch("../db/bookings.json");
-    const data = await response.json();
-    return data.items;
-  } catch (err) {
-    return console.log("Error al cargar los datos", err);
-  }
-};
+let arrayItems = [];
 
 const showItems = (items) => {
   contianer.innerHTML = "";
@@ -62,7 +53,7 @@ const showItems = (items) => {
         localStorage.setItem("cart", JSON.stringify(arrayCart));
       } else {
         alert("Necesitas estar logeado para poder reservar");
-        window.location.href = "./pages/login.html";
+        window.location.href = "./login.html";
       }
     });
   });
@@ -101,13 +92,13 @@ const resetFilters = () => {
   document.getElementById("price-max").value = "";
   document.getElementById("category").value = "";
 
-  showItems(allItems);
+  showItems(arrayItems);
 };
 
 document.addEventListener("DOMContentLoaded", () => {
   getItems()
     .then((items) => {
-      allItems = items;
+      arrayItems = items;
       showItems(items);
     })
     .catch((err) =>
